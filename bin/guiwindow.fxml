@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="682.9998779296875" prefWidth="842.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="jp.co.utdominion.gui.DomController">
+  <children>
+    <Pane layoutX="168.0" layoutY="96.0" prefHeight="278.0" prefWidth="580.0">
+      <children>
+        <Button id="supply_11" fx:id="supply1" layoutX="20.0" layoutY="3.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textOverrun="CLIP">
+          <font>
+            <Font size="15.0" fx:id="x1" />
+          </font>
+          <textFill>
+            <Color blue="0.200" green="0.968" red="1.000" fx:id="x2" />
+          </textFill>
+        </Button>
+        <Button id="supply_12" fx:id="supply2" font="$x1" layoutX="90.0" layoutY="3.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textFill="$x2" textOverrun="CLIP" />
+        <Button id="supply_13" fx:id="supply3" font="$x1" layoutX="160.0" layoutY="3.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textFill="$x2" textOverrun="CLIP" />
+        <Button id="supply_14" fx:id="supply4" font="$x1" layoutX="230.0" layoutY="3.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textOverrun="CLIP">
+          <textFill>
+            <Color blue="0.096" green="0.600" red="0.000" fx:id="x3" />
+          </textFill>
+        </Button>
+        <Button id="supply_15" fx:id="supply5" font="$x1" layoutX="300.0" layoutY="3.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textFill="$x3" textOverrun="CLIP" />
+        <Button id="supply_16" fx:id="supply6" font="$x1" layoutX="370.0" layoutY="3.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textFill="$x3" textOverrun="CLIP" />
+        <Button id="supply_17" fx:id="supply7" font="$x1" layoutX="440.0" layoutY="3.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textFill="#8f00ff" textOverrun="CLIP" />
+        <Button id="supply_1" fx:id="supply8" font="$x1" layoutX="20.0" layoutY="92.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textOverrun="CLIP" />
+        <Button id="supply_2" fx:id="supply9" font="$x1" layoutX="90.0" layoutY="92.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textOverrun="CLIP" />
+        <Button id="supply_3" fx:id="supply10" font="$x1" layoutX="160.0" layoutY="92.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textOverrun="CLIP" />
+        <Button id="supply_4" fx:id="supply11" font="$x1" layoutX="230.0" layoutY="92.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textOverrun="CLIP" />
+        <Button id="supply_5" fx:id="supply12" font="$x1" layoutX="300.0" layoutY="92.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textOverrun="CLIP" />
+        <Button id="supply_6" fx:id="supply13" font="$x1" layoutX="20.0" layoutY="180.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textOverrun="CLIP" />
+        <Button id="supply_7" fx:id="supply14" font="$x1" layoutX="90.0" layoutY="180.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textOverrun="CLIP" />
+        <Button id="supply_8" fx:id="supply15" font="$x1" layoutX="160.0" layoutY="180.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textOverrun="CLIP" />
+        <Button id="supply_9" fx:id="supply16" font="$x1" layoutX="230.0" layoutY="180.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textOverrun="CLIP" />
+        <Button id="supply_10" fx:id="supply17" font="$x1" layoutX="300.0" layoutY="180.0" mnemonicParsing="false" onAction="#onSupplyButtonClicked" prefHeight="70.0" prefWidth="70.0" text="" textOverrun="CLIP" />
+        <ScrollPane layoutX="-157.0" layoutY="3.0" prefHeight="271.0" prefWidth="148.0">
+          <content>
+            <AnchorPane id="" minHeight="0.0" minWidth="0.0" prefHeight="317.0" prefWidth="140.0">
+              <children>
+                <TextArea id="player_text4" fx:id="text_4" layoutX="0.0" layoutY="0.0" prefHeight="320.0" prefWidth="140.0" text="Player4&#10;&#10;&#10;&#10;&#10;&#10;hoge&#10;" wrapText="true" />
+              </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+        <Text fx:id="supply_text1" layoutX="42.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text2" layoutX="112.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text3" layoutX="182.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text4" layoutX="252.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text5" layoutX="322.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text6" layoutX="392.0" layoutY="84.0" scaleX="1.0" scaleY="0.999992838159364" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text7" layoutX="462.0" layoutY="84.0" scaleX="1.0" scaleY="0.999992838159364" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text8" layoutX="42.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text9" layoutX="112.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text10" layoutX="182.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text11" layoutX="252.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text12" layoutX="322.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text13" layoutX="42.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text14" layoutX="112.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text15" layoutX="182.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text16" layoutX="252.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <Text fx:id="supply_text17" layoutX="322.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      </children>
+    </Pane>
+    <ScrollPane layoutX="182.0" layoutY="485.0" prefHeight="82.0" prefWidth="399.0">
+      <content>
+        <AnchorPane id="" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="384.0">
+          <children>
+            <TextArea id="player_text1" fx:id="text_1" layoutX="0.0" layoutY="0.0" prefHeight="200.00009999999747" prefWidth="384.0" text="Player1&#10;&#10;&#10;&#10;&#10;&#10;hoge&#10;" wrapText="true" />
+          </children>
+        </AnchorPane>
+      </content>
+    </ScrollPane>
+    <ScrollPane layoutX="182.0" layoutY="577.0" prefHeight="95.0" prefWidth="399.0">
+      <content>
+        <GridPane fx:id="hand_pane" prefHeight="95.0" prefWidth="545.0">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </content>
+    </ScrollPane>
+    <ScrollPane layoutX="182.0" layoutY="14.0" prefHeight="82.0" prefWidth="399.0">
+      <content>
+        <AnchorPane id="" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="384.0">
+          <children>
+            <TextArea id="player_text3" fx:id="text_3" layoutX="0.0" layoutY="0.0" prefHeight="200.00009999999747" prefWidth="384.0" text="Player3&#10;&#10;&#10;&#10;&#10;&#10;hoge&#10;" wrapText="true" />
+          </children>
+        </AnchorPane>
+      </content>
+    </ScrollPane>
+    <ScrollPane layoutX="686.0" layoutY="100.0" prefHeight="271.0" prefWidth="148.0">
+      <content>
+        <AnchorPane id="" minHeight="0.0" minWidth="0.0" prefHeight="317.0" prefWidth="140.0">
+          <children>
+            <TextArea id="player_text2" fx:id="text_2" layoutX="0.0" layoutY="0.0" prefHeight="320.0" prefWidth="140.0" text="Player2&#10;&#10;&#10;&#10;&#10;&#10;hoge&#10;" wrapText="true" />
+          </children>
+        </AnchorPane>
+      </content>
+    </ScrollPane>
+    <Button layoutX="93.0" layoutY="587.0" mnemonicParsing="false" onAction="#goNextPhase" prefHeight="61.0" text="フェーズ終了" />
+    <GridPane id="hand_pane" fx:id="play_area" layoutX="183.0" layoutY="374.0" prefHeight="95.0" prefWidth="396.0">
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <ScrollPane layoutX="687.0" layoutY="391.0" prefHeight="109.0" prefWidth="148.0">
+      <content>
+        <GridPane fx:id="lastbuy2" prefHeight="95.0" prefWidth="545.0">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </content>
+    </ScrollPane>
+    <ScrollPane layoutX="586.0" layoutY="15.0" prefHeight="82.0" prefWidth="148.0">
+      <content>
+        <GridPane fx:id="lastbuy3" prefHeight="95.0" prefWidth="545.0">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </content>
+    </ScrollPane>
+    <ScrollPane layoutX="11.0" layoutY="376.0" prefHeight="109.0" prefWidth="148.0">
+      <content>
+        <GridPane fx:id="lastbuy4" prefHeight="95.0" prefWidth="545.0">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </content>
+    </ScrollPane>
+  </children>
+</AnchorPane>
