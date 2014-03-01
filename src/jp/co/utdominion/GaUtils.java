@@ -127,7 +127,7 @@ public class GaUtils {
 		for (int n = 0; n < Params.CARD_MAX_NUM; n++) {
 			val = col[3 + n + Params.CARD_MAX_NUM * 2].split(" ");
 			for (int j = 0; j < Params.CARD_MAX_NUM; j++) {
-				mat2[n][0][j] = Double.valueOf(val[j]);
+				mat3[n][0][j] = Double.valueOf(val[j]);
 			}
 		}
 		

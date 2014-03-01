@@ -210,13 +210,18 @@ public class Params {
 	//エリート
 	public final static int GA_ELETE_NUM = 100;
 	//エリートのうち、一定確率で死ぬ物の数
-	public final static int GA_ALIVE_NUM = 95;
+	public final static int GA_ALIVE_NUM = 98;
 	
 	//次世代に残る数
-	public final static int GA_GO_NEXT_NUM = 5;
+	public final static int GA_GO_NEXT_NUM = 2;
 	
-	public final static int GA_TOTAL_NUM = 300;
-
+	public final static int GA_TOTAL_NUM = 400;
+	
+	public final static int GA_TOTAL_NUM_1 = 100;
+	public final static int GA_TOTAL_NUM_2 = 200;
+	public final static int GA_TOTAL_NUM_3 = 300;
+	public final static int GA_TOTAL_NUM_4 = 400;
+	
 	//GA選択確率
 	public final static double GA_FIRST_PROBABILITY = 0.99;
 	public final static double GA_REDUCE_PROBABILITY = 0.999;
@@ -227,9 +232,9 @@ public class Params {
 	public final static int HAND_RANDOM = 3;
 
 	//ログ学習のペナルティ
-	public final static double LOG_UNCORRECT_PENALTY = 0.5;
+	public final static double LOG_UNCORRECT_PENALTY = 0.6;
 	//ログ学習の距離の最大値（ペナルティ含む）
-	public static final double LOG_DISTANCE_MAX = 2;
+	public static final double LOG_DISTANCE_MAX = 2.1;
 	
 	//0201 UltimateMode
 	//GA

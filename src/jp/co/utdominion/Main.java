@@ -2,6 +2,10 @@ package jp.co.utdominion;
 
 import jp.co.utdominion.gui.DomGUI;
 
+
+
+
+
 public class Main {
 	//Player[] _players = new Player[Params.GA_TOTAL_NUM];
 
