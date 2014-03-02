@@ -41,6 +41,8 @@ public class CardData {
 		_data.put(Params.CARD_EXPLORER,			new Card(Params.CARD_EXPLORER,		 5, Params.TYPE_ACTION,	  0, false, "探", "/cardImage/Explorer.png"));
 		_data.put(Params.CARD_BAZZER,			new Card(Params.CARD_BAZZER,		 5, Params.TYPE_ACTION,	  0, false, "バ", "/cardImage/Bazaar.png"));
 		_data.put(Params.CARD_WORKERSVILLAGE,	new Card(Params.CARD_WORKERSVILLAGE, 4, Params.TYPE_ACTION,	  0, false, "労", "/cardImage/WorkersVillage.png"));
+		_data.put(Params.CARD_MONUMENT		,	new Card(Params.CARD_MONUMENT, 		 4, Params.TYPE_ACTION,	  0, false, "記", "/cardImage/Monument.png"));
+		_data.put(Params.CARD_RABBLE		,	new Card(Params.CARD_RABBLE, 		 5, Params.TYPE_ACTION,	  0, false, "衆", "/cardImage/Rabble.png"));
 		
 		_data.put(Params.CARD_CURSE,			new Card(Params.CARD_CURSE,			 0, 0,				  	 -1, false, "呪", "/cardImage/Curse.png"));
 		

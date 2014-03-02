@@ -35,7 +35,7 @@ public class Params {
 	public final static int CARD_VILLAGE = 24;
 	//役人
 	public final static int CARD_CHAPEL = 25;
-	
+
 	public final static int CARD_GREATHALL = 26;
 	//改良
 	//仮面舞踏会
@@ -87,7 +87,7 @@ public class Params {
 	//見張り
 	//幽霊船
 	//抑留
-	
+
 	//闇市場
 	//公使
 	//へそくり
@@ -104,13 +104,13 @@ public class Params {
 	//ポーション
 	//薬草商
 	//錬金術師
-	
+
 	//石切り場
 	//大市場
 	//会計所
 	//隠し財産
 	//拡張
-	//記念碑
+	public final static int CARD_MONUMENT = 36;
 	//宮廷
 	//行商人
 	//玉璽
@@ -122,7 +122,7 @@ public class Params {
 	//借金
 	//植民地
 	//造幣所
-	//大衆
+	public final static int CARD_RABBLE = 37;
 	//鍛造
 	//投機
 	//都市
@@ -177,13 +177,29 @@ public class Params {
 	//遊牧民の野営地
 	//よろずや
 	//威嚇損
-	
-	
-	
+	//総督
+
+	//青空
+	//市場跡地
+	//隠遁者
+	//金物商
+	//狩場
+	//騎士
+	//偽造通貨
+	//救貧院
+	//狂人
+	//狂信者
+	//共同墓地
+	//吟遊詩人
+	//草茂屋敷
 	public final static int CARD_JUNKDEALER = 17;
 
 
 
+
+
+
+	//第一段階のため35に固定hontouha37
 	public final static int CARD_MAX_NUM = 35;
 
 	public final static int PLAYER_NUM = 4;
@@ -211,17 +227,17 @@ public class Params {
 	public final static int GA_ELETE_NUM = 100;
 	//エリートのうち、一定確率で死ぬ物の数
 	public final static int GA_ALIVE_NUM = 98;
-	
+
 	//次世代に残る数
 	public final static int GA_GO_NEXT_NUM = 2;
-	
+
 	public final static int GA_TOTAL_NUM = 400;
-	
+
 	public final static int GA_TOTAL_NUM_1 = 100;
 	public final static int GA_TOTAL_NUM_2 = 200;
 	public final static int GA_TOTAL_NUM_3 = 300;
 	public final static int GA_TOTAL_NUM_4 = 400;
-	
+
 	//GA選択確率
 	public final static double GA_FIRST_PROBABILITY = 0.99;
 	public final static double GA_REDUCE_PROBABILITY = 0.999;
@@ -235,17 +251,17 @@ public class Params {
 	public final static double LOG_UNCORRECT_PENALTY = 0.6;
 	//ログ学習の距離の最大値（ペナルティ含む）
 	public static final double LOG_DISTANCE_MAX = 2.1;
-	
+
 	//0201 UltimateMode
 	//GA
 	/*	//エリート
 		public final static int GA_ELETE_NUM = 1000;
 		//エリートのうち、一定確率で死ぬ物の数
 		public final static int GA_ALIVE_NUM = 950;
-		
+
 		//次世代に残る数
 		public final static int GA_GO_NEXT_NUM = 10;
-		
+
 		public final static int GA_TOTAL_NUM = 5000;
 
 		//GA選択確率

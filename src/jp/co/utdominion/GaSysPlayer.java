@@ -193,7 +193,8 @@ public class GaSysPlayer extends Player {
 		//5コスターミナルあったら使う
 		for (Card card : hand) {
 			if (card.getId() == Params.CARD_COUNCILROOM || card.getId() == Params.CARD_WHARF
-					|| card.getId() == Params.CARD_MARCHANTSHIP || card.getId() == Params.CARD_EXPLORER) {
+					|| card.getId() == Params.CARD_MARCHANTSHIP || card.getId() == Params.CARD_EXPLORER
+					|| card.getId() == Params.CARD_RABBLE) {
 				if (getAction() > 0) {
 					useCard(card);
 					return true;
@@ -204,7 +205,8 @@ public class GaSysPlayer extends Player {
 		//その他4コスターミナル
 		for (Card card : hand) {
 			if (card.getId() == Params.CARD_MONEYLENDER || card.getId() == Params.CARD_WOODCUTTER
-					|| card.getId() == Params.CARD_SMITHY || card.getId() == Params.CARD_CUTPURSE) {
+					|| card.getId() == Params.CARD_SMITHY || card.getId() == Params.CARD_CUTPURSE
+					|| card.getId() == Params.CARD_MONUMENT) {
 				if (getAction() > 0) {
 					useCard(card);
 					return true;

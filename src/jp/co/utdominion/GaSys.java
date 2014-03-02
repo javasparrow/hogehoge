@@ -41,6 +41,9 @@ public class GaSys {
 
 	PrintWriter pw = null;
 
+	HashSet<Integer> disableSet = new HashSet<Integer>();
+	HashSet<Integer> playingSet = new HashSet<Integer>();
+
 	public void executeGa() {
 		File file = new File("C:/dominion/log2.txt");
 
@@ -53,46 +56,81 @@ public class GaSys {
 		}
 		int i, n, j, k;
 
-		HashSet<Integer> disableSet = new HashSet<Integer>();
-
 		for (i = 0; i < 1000; i++) {
 			disableSet = new HashSet<Integer>();
+			playingSet = new HashSet<Integer>();
 			_generation++;
 			makePlayers(null);
 			System.out.println("generation" + i);
 			pw.println("generation" + i);
-			//全サプライだったら200000くらいか
-			for (j = 0; j < 100000; j++) {
-				_totalMatch++;
-				DomCore core = new DomCore();
-				int[] plNums = new int[4];
-				for (n = 0; n < 4; n++) {
-					plNums[n] = (int) (Math.random() * Params.GA_TOTAL_NUM);
-					while (!dontHave2(plNums, plNums[n]) || disableSet.contains(new Integer(plNums[n]))) {
-						plNums[n] = (int) (Math.random() * Params.GA_TOTAL_NUM);
-					}
-				}
-				for (n = 0; n < 4; n++) {
-					_players[plNums[n]].setCore(core);
-					if (DEBUG)
-						System.out.println("select player" + plNums[n]);
-				}
-				Player[] pl = { _players[plNums[0]], _players[plNums[1]], _players[plNums[2]], _players[plNums[3]] };
-				Result re = core.executeGame(pl, 100, Params.HAND_RANDOM, null);
-				if (re == null)
-					continue;
-				for (n = 0; n < 4; n++) {
-					if (disableSet.size() < Params.GA_TOTAL_NUM / 2 && _players[plNums[n]].isDisabled()) {
-						disableSet.add(plNums[n]);
-						System.out.println("disabled player:" + disableSet.size());
-					}
-				}
-				if (_totalMatch % 1000 == 0) {
-					System.out.println("match" + _totalMatch);
-					pw.println("match" + _totalMatch);
-					re.printResult(pw);
-				}
+			class GaThread extends Thread {
+				public void run() {
 
+					int localMatch = 0;
+					
+					while (_totalMatch < 100000) {
+
+						//非同期処理によりtotalMatchが崩れるかもしれないがやりすぎてもいいので問題ない
+						_totalMatch++;
+						localMatch ++;
+						DomCore core = new DomCore();
+						int[] plNums = new int[4];
+						//同時に２試合をプレイヤーがすると非常に困るのでplayngSetの参照が衝突しないようにする
+						synchronized (playingSet) {
+							for (int n = 0; n < 4; n++) {
+								plNums[n] = (int) (Math.random() * Params.GA_TOTAL_NUM);
+								while (!dontHave2(plNums, plNums[n]) || disableSet.contains(new Integer(plNums[n]))
+										|| playingSet.contains(new Integer(plNums[n]))) {
+									plNums[n] = (int) (Math.random() * Params.GA_TOTAL_NUM);
+								}
+							}
+							for (int n = 0; n < 4; n++) {
+								_players[plNums[n]].setCore(core);
+								playingSet.add(plNums[n]);
+								if (DEBUG)
+									System.out.println("select player" + plNums[n]);
+							}
+						}
+						Player[] pl = { _players[plNums[0]], _players[plNums[1]], _players[plNums[2]],
+								_players[plNums[3]] };
+						Result re = core.executeGame(pl, 100, Params.HAND_RANDOM, null);
+						if (re == null)
+							continue;
+						for (int n = 0; n < 4; n++) {
+							playingSet.remove(plNums[n]);
+							if (disableSet.size() < Params.GA_TOTAL_NUM / 2 && _players[plNums[n]].isDisabled()) {
+								disableSet.add(plNums[n]);
+								System.out.println("disabled player:" + disableSet.size());
+							}
+						}
+						if (localMatch % 1000 == 0) {
+							synchronized (pw) {
+								System.out.println("match" + _totalMatch);
+								pw.println("match" + _totalMatch);
+								re.printResult(pw);
+							}
+						}
+					}
+				}
+			}
+			GaThread thread1 = new GaThread();
+			GaThread thread2 = new GaThread();
+			GaThread thread3 = new GaThread();
+			GaThread thread4 = new GaThread();
+
+			thread1.run();
+			thread2.run();
+			thread3.run();
+			thread4.run();
+
+			try {
+				thread1.join();
+				thread2.join();
+				thread3.join();
+				thread4.join();
+			} catch (InterruptedException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
 			}
 			pw.flush();
 		}
@@ -136,9 +174,33 @@ public class GaSys {
 
 			if (LOADFROMFILE && _generation == 1) {
 				GaSysPlayer p = GaUtils.createPlayerFromFile(LOADFILEDIR);
-				for(i = 0; i < Params.GA_ELETE_NUM; i++){
+				for (i = 0; i < 2; i++) {
 					parentList.add(new GaSysPlayer(core, p.getOthersDeckMat(), p.getMyDeckMat(), p.getsupplyMat()
 							, p.getDeckCntMat(), p.getPositionMat(), p.getEndTurnMat(), p.getVictryDiffMat()));
+				}
+
+				//親の初期化
+				//初期収束を避けるため優秀な奴で埋めるのはやめておく
+				for (i = 2; i < Params.GA_ELETE_NUM; i++) {
+					double[][][] mat1 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
+					double[][][] mat2 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
+					double[][][] mat3 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
+					double[][][] mat4 = new double[Params.CARD_MAX_NUM][1][1];
+					double[][][] mat5 = new double[Params.CARD_MAX_NUM][1][1];
+					double[][][] mat6 = new double[Params.CARD_MAX_NUM][1][1];
+					double[][][] mat7 = new double[Params.CARD_MAX_NUM][1][1];
+					for (n = 0; n < Params.CARD_MAX_NUM; n++) {
+						for (j = 0; j < Params.CARD_MAX_NUM; j++) {
+							mat1[n][0][j] = (Math.random() - 0.5) / 10; //other
+							mat2[n][0][j] = (Math.random() - 0.5) / 2; //my
+							mat3[n][0][j] = (Math.random() - 0.5) * 2; //sup
+						}
+						mat4[n][0][0] = (Math.random() - 0.5) / 5;
+						mat5[n][0][0] = (Math.random() - 0.5) / 2;
+						mat6[n][0][0] = (Math.random() - 0.5) / 6;
+						mat7[n][0][0] = (Math.random() - 0.5) / 5;
+					}
+					parentList.add(new GaSysPlayer(core, mat1, mat2, mat3, mat4, mat5, mat6, mat7));
 				}
 			}
 			else {
@@ -308,8 +370,6 @@ public class GaSys {
 				case 2:
 				case 3:
 				case 4:
-				case 20:
-				case 21:
 					int targetPlayerNum = (int) (Math.random() * Params.GA_ELETE_NUM);
 					GaSysPlayer targetPlayer = ((GaSysPlayer) parentList.get(targetPlayerNum));
 					for (n = 0; n < Params.CARD_MAX_NUM; n++) {
@@ -384,6 +444,8 @@ public class GaSys {
 				case 6:
 				case 7:
 				case 8:
+				case 20:
+				case 21:
 					targetPlayerNum1 = (int) (Math.random() * Params.GA_ELETE_NUM);
 					targetPlayerNum2 = (int) (Math.random() * Params.GA_ELETE_NUM);
 					int targetPlayerNum3 = (int) (Math.random() * Params.GA_ELETE_NUM);
@@ -419,6 +481,7 @@ public class GaSys {
 				case 22:
 				case 23:
 				case 25:
+				case 24:
 					targetPlayerNum1 = (int) (Math.random() * Params.GA_ELETE_NUM);
 					targetPlayerNum2 = (int) (Math.random() * Params.GA_ELETE_NUM);
 					targetPlayer1 = ((GaSysPlayer) parentList.get(targetPlayerNum1));
@@ -471,7 +534,6 @@ public class GaSys {
 				case 12:
 				case 18:
 				case 19:
-				case 24:
 					targetPlayerNum = (int) (Math.random() * Params.GA_ELETE_NUM);
 					targetPlayer = ((GaSysPlayer) parentList.get(targetPlayerNum));
 					for (n = 0; n < Params.CARD_MAX_NUM; n++) {

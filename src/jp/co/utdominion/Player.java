@@ -32,6 +32,7 @@ public abstract class Player {
 	int _coin;
 	int _action;
 	int _buy;
+	int _vpToken;
 	//現在のフェイズ
 	int _phase;
 	//手番
@@ -51,6 +52,7 @@ public abstract class Player {
 	public void init(int hand, int position) {
 
 		_position = position;
+		_vpToken = 0;
 
 		CardData cd = CardData.getInstence();
 
@@ -119,7 +121,7 @@ public abstract class Player {
 		for (Card card : _oldDuration) {
 			point += card.getVictry(this);
 		}
-		return point;
+		return point + _vpToken;
 	}
 
 	protected int countCard(int id) {
@@ -698,6 +700,14 @@ public abstract class Player {
 			_action += 2;
 			_buy ++;
 			break;
+		case Params.CARD_MONUMENT:
+			_coin += 2;
+			_vpToken ++;
+			break;
+		case Params.CARD_RABBLE:
+			drawCard(3);
+			_core.executeAttack(Params.CARD_RABBLE, this);
+			break;
 		}
 	}
 
@@ -816,6 +826,39 @@ public abstract class Player {
 				}
 			}
 			break;
+		//TODO 戻す順番の処理
+		case Params.CARD_RABBLE:
+			//公開したカード
+			ArrayList<Card> cards = new ArrayList<Card>();
+			for(int i = 0; i < 3; i ++){
+				if (_deck.size() == 0) {
+					if (_discard.size() == 0) {
+						
+					}
+					else {
+						for (Card card : _discard) {
+							_deck.add(card);
+						}
+						_discard.clear();
+						suffleDeck();
+					}
+				}
+				//山の一番上を公開リストに追加
+				if (_deck.size() != 0) {
+					cards.add(_deck.get(0));
+					_deck.remove(0);
+				}
+			}
+			//公開したカードを戻す
+			for(Card card: cards){
+				if(card.isAction() || card.isTreasure()){
+					_discard.add(card);
+				}
+				else{
+					_deck.add(0, card);
+				}
+			}
+			break;
 		}
 	}
 	
@@ -824,8 +867,8 @@ public abstract class Player {
 	}
 	
 	public boolean isDisabled(){
-		//2シグマ弱部分で切っている
-		if(_games >= 5 && getAveScore() < 2.5 - 4 / Math.sqrt(_games)){
+		//2シグマ部分で切っている
+		if(_games >= 5 && getAveScore() < 2.5 - 4.6 / Math.sqrt(_games)){
 			return true;
 		}
 		return false;
