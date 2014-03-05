@@ -45,7 +45,7 @@ public class GaSys {
 	HashSet<Integer> playingSet = new HashSet<Integer>();
 
 	public void executeGa() {
-		File file = new File("C:/dominion/log2.txt");
+		File file = new File("logGa.txt");
 
 		try {
 			file.createNewFile();
@@ -68,7 +68,7 @@ public class GaSys {
 				public void run() {
 
 					int localMatch = 0;
-					
+
 					while (_totalMatch < 10000) {
 
 						//非同期処理によりtotalMatchが崩れるかもしれないがやりすぎてもいいので問題ない
@@ -133,7 +133,7 @@ public class GaSys {
 			thread4.start();
 			thread5.start();
 			thread6.start();
-			
+
 
 			try {
 				thread1.join();
@@ -441,7 +441,7 @@ public class GaSys {
 									targetPlayer2.getsupplyMat()[n][0][j]) / 2;
 
 						}
-						/*	
+						/*
 						mat4[n][0][0] = targetPlayer.getDeckCntMat()[n][0][0];
 						mat5[n][0][0] = targetPlayer.getAllCntMat()[n][0][0];
 						mat6[n][0][0] = targetPlayer.getEndTurnMat()[n][0][0];
