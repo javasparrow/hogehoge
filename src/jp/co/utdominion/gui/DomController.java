@@ -162,7 +162,7 @@ public class DomController implements Initializable {
 							GaUtils.createMatFromFileSmall("endTurnMat.txt"),
 							GaUtils.createMatFromFileSmall("victryDiffMat.txt"));
 */
-					_players[n] = GaUtils.createPlayerFromFile("C:\\Users\\denjo\\Documents\\domiAI\\domAI.txt");
+					_players[n] = GaUtils.createPlayerFromFile("C:\\Users\\denjo\\Documents\\domiAI\\domAI.txt", true);
 					_players[n].setCore(core);
 				}
 

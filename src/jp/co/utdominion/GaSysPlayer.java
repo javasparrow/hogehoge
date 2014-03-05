@@ -11,11 +11,11 @@ public class GaSysPlayer extends Player {
 	private static final boolean DEBUG = false;
 
 	//ログ用
-		ArrayList<String> _logs = new ArrayList<String>();
-		ArrayList<Integer> _lastBuyCard = new ArrayList<Integer>();
-		int _lastCoin;
-		int _lastBuy;
-	
+	ArrayList<String> _logs = new ArrayList<String>();
+	ArrayList<Integer> _lastBuyCard = new ArrayList<Integer>();
+	int _lastCoin;
+	int _lastBuy;
+
 	//他人のデッキに対する行列(カード種類*1*カード種類)
 	double[][][] _othersDeckMat = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
 	//自分の n*1*n
@@ -33,8 +33,11 @@ public class GaSysPlayer extends Player {
 	//手番mat
 	double[][][] _positionMat = new double[Params.CARD_MAX_NUM][1][1];
 
+	boolean _useLog;
+
 	public GaSysPlayer(DomCore core, double[][][] othersDeckMat, double[][][] myDeckMat, double[][][] supplyMat
-			, double[][][] deckCntMat, double[][][] positionMat, double[][][] endTurnMat, double[][][] victryDiffMat) {
+			, double[][][] deckCntMat, double[][][] positionMat, double[][][] endTurnMat, double[][][] victryDiffMat
+			, boolean useLog) {
 		super(core);
 		for (int n = 0; n < Params.CARD_MAX_NUM; n++) {
 			for (int j = 0; j < Params.CARD_MAX_NUM; j++) {
@@ -47,6 +50,7 @@ public class GaSysPlayer extends Player {
 			_endTurnMat[n][0][0] = endTurnMat[n][0][0];
 			_victryDiffMat[n][0][0] = victryDiffMat[n][0][0];
 		}
+		_useLog = useLog;
 	}
 
 	public double[][][] getDeckCntMat() {
@@ -252,8 +256,13 @@ public class GaSysPlayer extends Player {
 	void aiTurn() {
 		ArrayList<Card> hand;
 
-		//ログの生成
-		String logString = "supply\n";
+		String logString = null;
+
+		if (_useLog) {
+			//ログの生成
+			logString = "supply\n";
+		}
+
 		//評価地の計算
 		double[][][] playerMat = new double[Params.PLAYER_NUM][Params.CARD_MAX_NUM][1];
 		double[][] supplyMat = new double[Params.CARD_MAX_NUM][1];
@@ -263,34 +272,41 @@ public class GaSysPlayer extends Player {
 				playerMat[n][i - 1][0] = getPlayersCardCnt(n, i);
 			}
 		}
-		for (int i = 1; i <= Params.CARD_MAX_NUM; i++) {
-			if (existCardIgnoreLeft(i) == true)
-				logString += "1,";
-			else
-				logString += "0,";
-		}
-		logString += "\nmyDeck\n";
-		for (int i = 1; i <= Params.CARD_MAX_NUM; i++) {
-			logString += playerMat[getPosition()][i - 1][0] + ",";
-		}
-		for (int n = 0; n < Params.PLAYER_NUM; n++) {
-			if (n == getPosition())
-				continue;
-			logString += "\nothersDeck\n";
+
+		String postString = null;
+		String supString = null;
+		
+		if (_useLog) {
+
 			for (int i = 1; i <= Params.CARD_MAX_NUM; i++) {
-				logString += playerMat[n][i - 1][0] + ",";
+				if (existCardIgnoreLeft(i) == true)
+					logString += "1,";
+				else
+					logString += "0,";
 			}
-		}
-		String postString;
+			logString += "\nmyDeck\n";
+			for (int i = 1; i <= Params.CARD_MAX_NUM; i++) {
+				logString += playerMat[getPosition()][i - 1][0] + ",";
+			}
+			for (int n = 0; n < Params.PLAYER_NUM; n++) {
+				if (n == getPosition())
+					continue;
+				logString += "\nothersDeck\n";
+				for (int i = 1; i <= Params.CARD_MAX_NUM; i++) {
+					logString += playerMat[n][i - 1][0] + ",";
+				}
+			}
 
-		postString = "\nendTurn\n" + estimateLeftTurn();
-		postString += "\nvDiff\n" + calculateVictryDiff();
-		postString += "\npos\n" + getPosition();
+			postString = "\nendTurn\n" + estimateLeftTurn();
+			postString += "\nvDiff\n" + calculateVictryDiff();
+			postString += "\npos\n" + getPosition();
 
-		Supply[] supply = _core.getSupply();
-		String supString = new String();
-		for (Supply sup : supply) {
-			supString += sup.getCard() + "," + sup.getNum() + "\n";
+			Supply[] supply = _core.getSupply();
+			supString = new String();
+			for (Supply sup : supply) {
+				supString += sup.getCard() + "," + sup.getNum() + "\n";
+			}
+
 		}
 
 		while (getAction() != 0) {
@@ -309,7 +325,6 @@ public class GaSysPlayer extends Player {
 		}
 		endTreasurePhase();
 
-		
 		_lastCoin = getCoin();
 		_lastBuy = getBuy();
 
@@ -337,20 +352,24 @@ public class GaSysPlayer extends Player {
 				System.out.println("player" + getPosition() + "buy card" + card);
 			buyCard(card);
 		}
-		
-		logString += "\ndeckCnt\n" + _deck.size();
-		logString += postString;
-		logString += "\ncoin\n" + _lastCoin;
-		logString += "\nbuyNum\n" + _lastBuy;
-		logString += "\nBoughtCard\n";
-		for (int card : buyList) {
-			logString += card + ",";
+
+		if (_useLog) {
+
+			logString += "\ndeckCnt\n" + _deck.size();
+			logString += postString;
+			logString += "\ncoin\n" + _lastCoin;
+			logString += "\nbuyNum\n" + _lastBuy;
+			logString += "\nBoughtCard\n";
+			for (int card : buyList) {
+				logString += card + ",";
+			}
+
+			logString += "\nsupplyLeft\n";
+			logString += supString;
+
+			_logs.add(logString);
+
 		}
-		
-		logString += "\nsupplyLeft\n";
-		logString += supString;
-		
-		_logs.add(logString);
 	}
 
 	//評価地の計算
@@ -508,7 +527,7 @@ public class GaSysPlayer extends Player {
 		}
 		return count;
 	}
-	
+
 	public ArrayList<String> getLogString() {
 		return _logs;
 	}

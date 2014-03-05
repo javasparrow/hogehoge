@@ -10,9 +10,5 @@ dominionLogs/
 *.snap
 *.class
 
-.project
-.cproject
-.classpath
-
 */*/bin/
 */*/gen/

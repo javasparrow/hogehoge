@@ -224,19 +224,19 @@ public class Params {
 
 	//GA
 	//エリート
-	public final static int GA_ELETE_NUM = 100;
+	public final static int GA_ELETE_NUM = 200;
 	//エリートのうち、一定確率で死ぬ物の数
-	public final static int GA_ALIVE_NUM = 98;
+	public final static int GA_ALIVE_NUM = 198;
 
 	//次世代に残る数
 	public final static int GA_GO_NEXT_NUM = 2;
 
-	public final static int GA_TOTAL_NUM = 400;
+	public final static int GA_TOTAL_NUM = 800;
 
-	public final static int GA_TOTAL_NUM_1 = 100;
-	public final static int GA_TOTAL_NUM_2 = 200;
-	public final static int GA_TOTAL_NUM_3 = 300;
-	public final static int GA_TOTAL_NUM_4 = 400;
+	public final static int GA_TOTAL_NUM_1 = 200;
+	public final static int GA_TOTAL_NUM_2 = 400;
+	public final static int GA_TOTAL_NUM_3 = 600;
+	public final static int GA_TOTAL_NUM_4 = 800;
 
 	//GA選択確率
 	public final static double GA_FIRST_PROBABILITY = 0.99;

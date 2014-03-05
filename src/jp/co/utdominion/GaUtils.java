@@ -77,7 +77,7 @@ public class GaUtils {
 		return mat1;
 	}
 	
-	public static GaSysPlayer createPlayerFromFile(String pass){
+	public static GaSysPlayer createPlayerFromFile(String pass, boolean useLog){
 		String result = "";
 		try{
 			  File file = new File(pass);
@@ -151,6 +151,6 @@ public class GaUtils {
 			mat7[n][0][0] = Double.valueOf(val[n]);
 		}
 		
-		return new GaSysPlayer(null, mat1, mat2, mat3, mat4, mat5, mat6, mat7);
+		return new GaSysPlayer(null, mat1, mat2, mat3, mat4, mat5, mat6, mat7, useLog);
 	}
 }

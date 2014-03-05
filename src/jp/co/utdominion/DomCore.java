@@ -289,6 +289,15 @@ public class DomCore {
 	}
 	
 	public void refreshGUI(){
-		if(_gui != null) _gui.refresh(this); 
+		if(_gui != null){
+			_gui.refresh(this); 
+			if(_players[_currentPlayer].getClass() == HumanPlayer.class) return;
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+		}
 	}
 }

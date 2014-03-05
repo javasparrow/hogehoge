@@ -63,12 +63,13 @@ public class GaSys {
 			makePlayers(null);
 			System.out.println("generation" + i);
 			pw.println("generation" + i);
+			_totalMatch = 0;
 			class GaThread extends Thread {
 				public void run() {
 
 					int localMatch = 0;
 					
-					while (_totalMatch < 100000) {
+					while (_totalMatch < 10000) {
 
 						//非同期処理によりtotalMatchが崩れるかもしれないがやりすぎてもいいので問題ない
 						_totalMatch++;
@@ -93,11 +94,15 @@ public class GaSys {
 						}
 						Player[] pl = { _players[plNums[0]], _players[plNums[1]], _players[plNums[2]],
 								_players[plNums[3]] };
-						Result re = core.executeGame(pl, 100, Params.HAND_RANDOM, null);
+						Result re = core.executeGame(pl, 50, Params.HAND_RANDOM, null);
+						synchronized (playingSet) {
+							for (int n = 0; n < 4; n++) {
+								playingSet.remove(plNums[n]);
+							}
+						}
 						if (re == null)
 							continue;
 						for (int n = 0; n < 4; n++) {
-							playingSet.remove(plNums[n]);
 							if (disableSet.size() < Params.GA_TOTAL_NUM / 2 && _players[plNums[n]].isDisabled()) {
 								disableSet.add(plNums[n]);
 								System.out.println("disabled player:" + disableSet.size());
@@ -105,29 +110,38 @@ public class GaSys {
 						}
 						if (localMatch % 1000 == 0) {
 							synchronized (pw) {
+								System.out.println("playing" + playingSet.size());
 								System.out.println("match" + _totalMatch);
 								pw.println("match" + _totalMatch);
 								re.printResult(pw);
 							}
 						}
 					}
+					System.out.println("Thread End");
 				}
 			}
 			GaThread thread1 = new GaThread();
 			GaThread thread2 = new GaThread();
 			GaThread thread3 = new GaThread();
 			GaThread thread4 = new GaThread();
+			GaThread thread5 = new GaThread();
+			GaThread thread6 = new GaThread();
 
-			thread1.run();
-			thread2.run();
-			thread3.run();
-			thread4.run();
+			thread1.start();
+			thread2.start();
+			thread3.start();
+			thread4.start();
+			thread5.start();
+			thread6.start();
+			
 
 			try {
 				thread1.join();
 				thread2.join();
 				thread3.join();
 				thread4.join();
+				thread5.join();
+				thread6.join();
 			} catch (InterruptedException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
@@ -165,7 +179,7 @@ public class GaSys {
 					mat6[n][0][0] = (Math.random() - 0.5) / 6;
 					mat7[n][0][0] = (Math.random() - 0.5) / 5;
 				}
-				_players[i] = new GaSysPlayer(core, mat1, mat2, mat3, mat4, mat5, mat6, mat7);
+				_players[i] = new GaSysPlayer(core, mat1, mat2, mat3, mat4, mat5, mat6, mat7, false);
 			}
 		}
 		else {
@@ -173,10 +187,10 @@ public class GaSys {
 			int i, n, j;
 
 			if (LOADFROMFILE && _generation == 1) {
-				GaSysPlayer p = GaUtils.createPlayerFromFile(LOADFILEDIR);
+				GaSysPlayer p = GaUtils.createPlayerFromFile(LOADFILEDIR, false);
 				for (i = 0; i < 2; i++) {
 					parentList.add(new GaSysPlayer(core, p.getOthersDeckMat(), p.getMyDeckMat(), p.getsupplyMat()
-							, p.getDeckCntMat(), p.getPositionMat(), p.getEndTurnMat(), p.getVictryDiffMat()));
+							, p.getDeckCntMat(), p.getPositionMat(), p.getEndTurnMat(), p.getVictryDiffMat(), false));
 				}
 
 				//親の初期化
@@ -200,7 +214,7 @@ public class GaSys {
 						mat6[n][0][0] = (Math.random() - 0.5) / 6;
 						mat7[n][0][0] = (Math.random() - 0.5) / 5;
 					}
-					parentList.add(new GaSysPlayer(core, mat1, mat2, mat3, mat4, mat5, mat6, mat7));
+					parentList.add(new GaSysPlayer(core, mat1, mat2, mat3, mat4, mat5, mat6, mat7, false));
 				}
 			}
 			else {
@@ -228,7 +242,7 @@ public class GaSys {
 
 					GaSysPlayer p = ((GaSysPlayer) _players[i]);
 					parentList.add(new GaSysPlayer(core, p.getOthersDeckMat(), p.getMyDeckMat(), p.getsupplyMat()
-							, p.getDeckCntMat(), p.getPositionMat(), p.getEndTurnMat(), p.getVictryDiffMat()));
+							, p.getDeckCntMat(), p.getPositionMat(), p.getEndTurnMat(), p.getVictryDiffMat(), false));
 
 					String str = new String();
 					System.out.println("othersDeckMat");
@@ -313,7 +327,7 @@ public class GaSys {
 
 							parentList.add(new GaSysPlayer(core,
 									p.getOthersDeckMat(), p.getMyDeckMat(), p.getsupplyMat(),
-									p.getDeckCntMat(), p.getPositionMat(), p.getEndTurnMat(), p.getVictryDiffMat()));
+									p.getDeckCntMat(), p.getPositionMat(), p.getEndTurnMat(), p.getVictryDiffMat(), false));
 
 							currentPlayerCursor++;
 							currentProbability *= Params.GA_REDUCE_PROBABILITY;
@@ -334,7 +348,7 @@ public class GaSys {
 				GaSysPlayer p = ((GaSysPlayer) parentList.get(i));
 				_players[i] = new GaSysPlayer(core,
 						p.getOthersDeckMat(), p.getMyDeckMat(), p.getsupplyMat(),
-						p.getDeckCntMat(), p.getPositionMat(), p.getEndTurnMat(), p.getVictryDiffMat());
+						p.getDeckCntMat(), p.getPositionMat(), p.getEndTurnMat(), p.getVictryDiffMat(), false);
 			}
 
 			//子供の個体
@@ -574,7 +588,7 @@ public class GaSys {
 						mat7[n][0][0] = (Math.random() - 0.5) / 5;
 				}
 
-				_players[i] = new GaSysPlayer(core, mat1, mat2, mat3, mat4, mat5, mat6, mat7);
+				_players[i] = new GaSysPlayer(core, mat1, mat2, mat3, mat4, mat5, mat6, mat7, false);
 			}
 		}
 	}

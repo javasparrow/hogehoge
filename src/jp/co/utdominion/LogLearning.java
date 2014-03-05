@@ -181,7 +181,7 @@ public class LogLearning {
 		else {
 
 			if (_generation == 1 && LOADFROMFILE == true) {
-				GaSysPlayer p = GaUtils.createPlayerFromFile(LOADFILEDIR);
+				GaSysPlayer p = GaUtils.createPlayerFromFile(LOADFILEDIR, false);
 				for (int i = 0; i < 2; i++) {
 					parentList.add(new LogStudyPlayer(p.getOthersDeckMat(), p.getMyDeckMat(), p.getsupplyMat()
 							, p.getDeckCntMat(), p.getPositionMat(), p.getEndTurnMat(), p.getVictryDiffMat()));
