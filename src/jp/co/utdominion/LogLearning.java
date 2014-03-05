@@ -20,7 +20,7 @@ public class LogLearning {
 
 	private static final boolean DEBUG = false;
 	private static final boolean LOADFROMFILE = true;
-	private static final String LOADFILEDIR = "C:\\Users\\denjo\\Documents\\domiAI\\domAI.txt";
+	private static final String LOADFILEDIR = "domAI.txt";
 
 	PrintWriter pw = null;
 
@@ -190,7 +190,7 @@ public class LogLearning {
 				//親の初期化
 				//初期収束を避けるため優秀な奴で埋めるのはやめておく
 				int i, n, j;
-				for (i = 1; i < Params.GA_ELETE_NUM; i++) {
+				for (i = 1; i < Params.GA_PARENT_NUM; i++) {
 					double[][][] mat1 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
 					double[][][] mat2 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
 					double[][][] mat3 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
@@ -213,7 +213,7 @@ public class LogLearning {
 				}
 
 				//永遠の命を与えられるエリート
-				for (i = 0; i < Params.GA_GO_NEXT_NUM; i++) {
+				for (i = 0; i < Params.GA_ELETE_NUM; i++) {
 					_players[i] = new LogStudyPlayer(
 							p.getOthersDeckMat(), p.getMyDeckMat(), p.getsupplyMat(),
 							p.getDeckCntMat(), p.getPositionMat(), p.getEndTurnMat(), p.getVictryDiffMat());
@@ -235,7 +235,7 @@ public class LogLearning {
 				int i, n, j;
 
 				//必ず生き残る個体
-				for (i = 0; i < Params.GA_ELETE_NUM - Params.GA_ALIVE_NUM; i++) {
+				for (i = 0; i < Params.GA_PARENT_NUM - Params.GA_ALIVE_NUM; i++) {
 					System.out.println("elete" + i + " score:" + _players[i].getDest());
 					pw.println("elete" + i + " score:" + _players[i].getDest());
 
@@ -312,9 +312,9 @@ public class LogLearning {
 				}
 
 				//一定確率で死ぬ個体
-				int currentPlayerCursor = Params.GA_ELETE_NUM - Params.GA_ALIVE_NUM;
+				int currentPlayerCursor = Params.GA_PARENT_NUM - Params.GA_ALIVE_NUM;
 				double currentProbability = Params.GA_FIRST_PROBABILITY;
-				for (i = Params.GA_ELETE_NUM - Params.GA_ALIVE_NUM; i < Params.GA_ELETE_NUM; i++) {
+				for (i = Params.GA_PARENT_NUM - Params.GA_ALIVE_NUM; i < Params.GA_PARENT_NUM; i++) {
 					while (true) {
 						if (Math.random() < currentProbability) {
 							/*_players[i] = new LogStudyPlayer(
@@ -335,14 +335,14 @@ public class LogLearning {
 						currentPlayerCursor++;
 						//WARNING! でっちあげ例外処理
 						if (currentPlayerCursor == _players.length) {
-							currentPlayerCursor = Params.GA_ELETE_NUM - Params.GA_ALIVE_NUM;
+							currentPlayerCursor = Params.GA_PARENT_NUM - Params.GA_ALIVE_NUM;
 							System.out.println("warning! failed");
 						}
 					}
 				}
 
 				//永遠の命を与えられるエリート
-				for (i = 0; i < Params.GA_GO_NEXT_NUM; i++) {
+				for (i = 0; i < Params.GA_ELETE_NUM; i++) {
 					//LogStudyPlayer p = ((LogStudyPlayer) parentList.get(i));
 					LogStudyPlayer p = _players[i];
 					_players[i] = new LogStudyPlayer(
@@ -355,7 +355,7 @@ public class LogLearning {
 			int i, n, j;
 
 			//子供の個体
-			for (i = Params.GA_GO_NEXT_NUM; i < Params.GA_TOTAL_NUM; i++) {
+			for (i = Params.GA_ELETE_NUM; i < Params.GA_TOTAL_NUM; i++) {
 				double[][][] mat1 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
 				double[][][] mat2 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
 				double[][][] mat3 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
@@ -387,7 +387,7 @@ public class LogLearning {
 				case 2:
 				case 3:
 				case 4:
-					int targetPlayerNum = (int) (Math.random() * Params.GA_ELETE_NUM);
+					int targetPlayerNum = (int) (Math.random() * Params.GA_PARENT_NUM);
 					LogStudyPlayer targetPlayer = ((LogStudyPlayer) parentList.get(targetPlayerNum));
 					for (n = 0; n < Params.CARD_MAX_NUM; n++) {
 						for (j = 0; j < Params.CARD_MAX_NUM; j++) {
@@ -427,8 +427,8 @@ public class LogLearning {
 				case 27:
 				case 28:
 				case 29:
-					int targetPlayerNum1 = (int) (Math.random() * Params.GA_ELETE_NUM);
-					int targetPlayerNum2 = (int) (Math.random() * Params.GA_ELETE_NUM);
+					int targetPlayerNum1 = (int) (Math.random() * Params.GA_PARENT_NUM);
+					int targetPlayerNum2 = (int) (Math.random() * Params.GA_PARENT_NUM);
 					LogStudyPlayer targetPlayer1 = ((LogStudyPlayer) parentList.get(targetPlayerNum1));
 					LogStudyPlayer targetPlayer2 = ((LogStudyPlayer) parentList.get(targetPlayerNum2));
 
@@ -444,7 +444,7 @@ public class LogLearning {
 									targetPlayer2.getsupplyMat()[n][0][j]) / 2;
 
 						}
-						/*	
+						/*
 						mat4[n][0][0] = targetPlayer.getDeckCntMat()[n][0][0];
 						mat5[n][0][0] = targetPlayer.getAllCntMat()[n][0][0];
 						mat6[n][0][0] = targetPlayer.getEndTurnMat()[n][0][0];
@@ -463,9 +463,9 @@ public class LogLearning {
 				case 8:
 				case 21:
 				case 19:
-					targetPlayerNum1 = (int) (Math.random() * Params.GA_ELETE_NUM);
-					targetPlayerNum2 = (int) (Math.random() * Params.GA_ELETE_NUM);
-					int targetPlayerNum3 = (int) (Math.random() * Params.GA_ELETE_NUM);
+					targetPlayerNum1 = (int) (Math.random() * Params.GA_PARENT_NUM);
+					targetPlayerNum2 = (int) (Math.random() * Params.GA_PARENT_NUM);
+					int targetPlayerNum3 = (int) (Math.random() * Params.GA_PARENT_NUM);
 					targetPlayer1 = ((LogStudyPlayer) parentList.get(targetPlayerNum1));
 					targetPlayer2 = ((LogStudyPlayer) parentList.get(targetPlayerNum2));
 					LogStudyPlayer targetPlayer3 = ((LogStudyPlayer) parentList.get(targetPlayerNum3));
@@ -474,9 +474,9 @@ public class LogLearning {
 					mat2 = targetPlayer2.getMyDeckMat();
 					mat3 = targetPlayer3.getsupplyMat();
 
-					targetPlayerNum1 = (int) (Math.random() * Params.GA_ELETE_NUM);
-					targetPlayerNum2 = (int) (Math.random() * Params.GA_ELETE_NUM);
-					targetPlayerNum3 = (int) (Math.random() * Params.GA_ELETE_NUM);
+					targetPlayerNum1 = (int) (Math.random() * Params.GA_PARENT_NUM);
+					targetPlayerNum2 = (int) (Math.random() * Params.GA_PARENT_NUM);
+					targetPlayerNum3 = (int) (Math.random() * Params.GA_PARENT_NUM);
 					targetPlayer1 = ((LogStudyPlayer) parentList.get(targetPlayerNum1));
 					targetPlayer2 = ((LogStudyPlayer) parentList.get(targetPlayerNum2));
 					targetPlayer3 = ((LogStudyPlayer) parentList.get(targetPlayerNum3));
@@ -485,7 +485,7 @@ public class LogLearning {
 					mat5 = targetPlayer2.getPositionMat();
 					mat6 = targetPlayer3.getEndTurnMat();
 
-					targetPlayerNum1 = (int) (Math.random() * Params.GA_ELETE_NUM);
+					targetPlayerNum1 = (int) (Math.random() * Params.GA_PARENT_NUM);
 					targetPlayer1 = ((LogStudyPlayer) parentList.get(targetPlayerNum1));
 
 					mat7 = targetPlayer1.getVictryDiffMat();
@@ -501,8 +501,8 @@ public class LogLearning {
 				case 25:
 				case 24:
 				case 20:
-					targetPlayerNum1 = (int) (Math.random() * Params.GA_ELETE_NUM);
-					targetPlayerNum2 = (int) (Math.random() * Params.GA_ELETE_NUM);
+					targetPlayerNum1 = (int) (Math.random() * Params.GA_PARENT_NUM);
+					targetPlayerNum2 = (int) (Math.random() * Params.GA_PARENT_NUM);
 					targetPlayer1 = ((LogStudyPlayer) parentList.get(targetPlayerNum1));
 					targetPlayer2 = ((LogStudyPlayer) parentList.get(targetPlayerNum2));
 
@@ -552,7 +552,7 @@ public class LogLearning {
 				case 11:
 				case 12:
 				case 18:
-					targetPlayerNum = (int) (Math.random() * Params.GA_ELETE_NUM);
+					targetPlayerNum = (int) (Math.random() * Params.GA_PARENT_NUM);
 					targetPlayer = ((LogStudyPlayer) parentList.get(targetPlayerNum));
 					for (n = 0; n < Params.CARD_MAX_NUM; n++) {
 						for (j = 0; j < Params.CARD_MAX_NUM; j++) {

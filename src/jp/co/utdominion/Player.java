@@ -25,7 +25,7 @@ public abstract class Player {
 	ArrayList<Card> _oldDuration =
 			new ArrayList<Card>();
 	DomCore _core;
-	
+
 	ArrayList<Card> _lastBuy = new ArrayList<Card>();
 
 	//各種パラメータ
@@ -242,34 +242,34 @@ public abstract class Player {
 	//DomGUI用
 	public String getPlayerInfoString(){
 		String infoString = new String();
-		infoString = "action:" + getAction() + "/coin:" + getCoin() + "/buy:" 
+		infoString = "action:" + getAction() + "/coin:" + getCoin() + "/buy:"
 				+ getBuy() + "\n" + "play:";
 		for (Card card : _play) {
 			infoString += card.getName() + "/";
 		}
 		infoString += "\nduration:";
-		
+
 		for (Card card : _oldDuration) {
 			infoString += card.getName() + "/";
 		}
 		for (Card card : _newDuration) {
 			infoString += card.getName() + "/";
 		}
-		
+
 		String top = null;
 		if(_discard.size() == 0) top = "";
 		else top = _discard.get(_discard.size() - 1).getName();
-		
+
 		infoString += "\ndeck:" + _deck.size() + "/discard:" + _discard.size() +  top
 				+ "/hand:" + _hand.size() + "\nbuy:";
-		
+
 		for (Card card : _lastBuy) {
 			infoString += card.getName() + "/";
 		}
-				
+
 		return infoString;
 	}
-	
+
 	//デバッグ用手札表示
 	protected void showHand() {
 		String hand = new String();
@@ -340,7 +340,7 @@ public abstract class Player {
 			showOldDuration();
 			showNewDuration();
 		}
-		
+
 		_action = 1;
 		_buy = 1;
 		_coin = 0;
@@ -350,7 +350,7 @@ public abstract class Player {
 		executeDurations();
 
 		_lastBuy.clear();
-		
+
 		//抽象メソッドの呼び出し
 		aiTurn();
 
@@ -403,7 +403,7 @@ public abstract class Player {
 				}
 			}
 			break;
-			
+
 		case Params.CARD_CHAPEL:
 			trashCard = -1;
 			if (isCardInHand(Params.CARD_CURSE)) {
@@ -412,8 +412,8 @@ public abstract class Player {
 			else if (isCardInHand(Params.CARD_ESTATE)) {
 				trashCard = Params.CARD_ESTATE;
 			}
-			else if (isCardInHand(Params.CARD_COPPER) && 
-					(countCard(Params.CARD_GOLD) >= 1 || countCard(Params.CARD_SILVER) >= 2 || 
+			else if (isCardInHand(Params.CARD_COPPER) &&
+					(countCard(Params.CARD_GOLD) >= 1 || countCard(Params.CARD_SILVER) >= 2 ||
 					countCard(Params.CARD_COPPER) >= 4 || (countCard(Params.CARD_SILVER) >= 1 && countCard(Params.CARD_COPPER) >= 2) ) ) {
 				trashCard = Params.CARD_COPPER;
 			}
@@ -501,7 +501,7 @@ public abstract class Player {
 	//アクションフェイズ終了
 	protected void endActionPhase() {
 		_core.refreshGUI();
-		
+
 		//アクションフェイズでなければ強制終了
 		if (_phase != Params.PHASE_ACTION) {
 			throw new java.lang.IllegalArgumentException("フェイズ" + _phase + "にアクションフェイズの終了が呼ばれました");
@@ -512,7 +512,7 @@ public abstract class Player {
 	//財宝フェイズ終了
 	protected void endTreasurePhase() {
 		_core.refreshGUI();
-		
+
 		//アクションフェイズでなければ強制終了
 		if (_phase != Params.PHASE_TREASURE) {
 			throw new java.lang.IllegalArgumentException("フェイズ" + _phase + "に財宝フェイズの終了が呼ばれました");
@@ -525,6 +525,7 @@ public abstract class Player {
 	}
 
 	//カードの使用（カード番号で呼び出し）
+	//名前ヤバイ
 	protected void useCard(Card card) {
 		//カードを持ってなかったら強制終了
 		if (!isCardInHand(card.getId())) {
@@ -682,12 +683,12 @@ public abstract class Player {
 			if(isCardInHand(Params.CARD_PROVINCE)){
 				if (_core.buyCard(Params.SUPPLY_GOLD)) {
 					_hand.add(0, CardData.getInstence().getCardData(Params.CARD_GOLD));
-				}	
+				}
 			}
 			else{
 				if (_core.buyCard(Params.SUPPLY_SILVER)) {
 					_hand.add(0, CardData.getInstence().getCardData(Params.CARD_SILVER));
-				}	
+				}
 			}
 			break;
 		case Params.CARD_BAZZER:
@@ -777,7 +778,7 @@ public abstract class Player {
 			drawCard(1);
 			break;
 		}
-		
+
 		//灯台
 		for (Card duration : _newDuration) {
 			if (duration.getId() == Params.CARD_LIGHTHOUSE)
@@ -788,7 +789,7 @@ public abstract class Player {
 			if (hand.getId() == Params.CARD_MOAT)
 				return;
 		}
-		
+
 		switch (id) {
 		case Params.CARD_WITCH:
 			if (_core.buyCard(Params.SUPPLY_CURSE))
@@ -833,7 +834,7 @@ public abstract class Player {
 			for(int i = 0; i < 3; i ++){
 				if (_deck.size() == 0) {
 					if (_discard.size() == 0) {
-						
+
 					}
 					else {
 						for (Card card : _discard) {
@@ -861,11 +862,11 @@ public abstract class Player {
 			break;
 		}
 	}
-	
+
 	public ArrayList<Card> getLastBuy(){
 		return _lastBuy;
 	}
-	
+
 	public boolean isDisabled(){
 		//2シグマ部分で切っている
 		if(_games >= 5 && getAveScore() < 2.5 - 4.6 / Math.sqrt(_games)){

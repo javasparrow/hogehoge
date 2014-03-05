@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 
 public class SmithyParamTuner {
 	public void execute() {
-		File file = new File("C:/dominion/smithy.txt");
+		File file = new File("smithy.txt");
 		PrintWriter pw = null;
 
 		try {

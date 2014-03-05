@@ -195,7 +195,7 @@ public class GaSys {
 
 				//親の初期化
 				//初期収束を避けるため優秀な奴で埋めるのはやめておく
-				for (i = 2; i < Params.GA_ELETE_NUM; i++) {
+				for (i = 2; i < Params.GA_PARENT_NUM; i++) {
 					double[][][] mat1 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
 					double[][][] mat2 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
 					double[][][] mat3 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
@@ -236,7 +236,7 @@ public class GaSys {
 				Arrays.sort(_players, new MyComparator());
 
 				//必ず生き残る個体
-				for (i = 0; i < Params.GA_ELETE_NUM - Params.GA_ALIVE_NUM; i++) {
+				for (i = 0; i < Params.GA_PARENT_NUM - Params.GA_ALIVE_NUM; i++) {
 					System.out.println("elete" + i + " score:" + _players[i].getAveScore());
 					pw.println("elete" + i + " score:" + _players[i].getAveScore());
 
@@ -313,9 +313,9 @@ public class GaSys {
 				}
 
 				//一定確率で死ぬ個体
-				int currentPlayerCursor = Params.GA_ELETE_NUM - Params.GA_ALIVE_NUM;
+				int currentPlayerCursor = Params.GA_PARENT_NUM - Params.GA_ALIVE_NUM;
 				double currentProbability = Params.GA_FIRST_PROBABILITY;
-				for (i = Params.GA_ELETE_NUM - Params.GA_ALIVE_NUM; i < Params.GA_ELETE_NUM; i++) {
+				for (i = Params.GA_PARENT_NUM - Params.GA_ALIVE_NUM; i < Params.GA_PARENT_NUM; i++) {
 					while (true) {
 						if (!_players[currentPlayerCursor].isDisabled() && Math.random() < currentProbability) {
 							/*_players[i] = new GaSysPlayer(core,
@@ -336,7 +336,7 @@ public class GaSys {
 						currentPlayerCursor++;
 						//WARNING! でっちあげ例外処理
 						if (currentPlayerCursor == _players.length) {
-							currentPlayerCursor = Params.GA_ELETE_NUM - Params.GA_ALIVE_NUM;
+							currentPlayerCursor = Params.GA_PARENT_NUM - Params.GA_ALIVE_NUM;
 							System.out.println("warning! failed");
 						}
 					}
@@ -344,7 +344,7 @@ public class GaSys {
 
 			}
 			//永遠の命を与えられるエリート
-			for (i = 0; i < Params.GA_GO_NEXT_NUM; i++) {
+			for (i = 0; i < Params.GA_ELETE_NUM; i++) {
 				GaSysPlayer p = ((GaSysPlayer) parentList.get(i));
 				_players[i] = new GaSysPlayer(core,
 						p.getOthersDeckMat(), p.getMyDeckMat(), p.getsupplyMat(),
@@ -352,7 +352,7 @@ public class GaSys {
 			}
 
 			//子供の個体
-			for (i = Params.GA_GO_NEXT_NUM; i < Params.GA_TOTAL_NUM; i++) {
+			for (i = Params.GA_ELETE_NUM; i < Params.GA_TOTAL_NUM; i++) {
 				double[][][] mat1 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
 				double[][][] mat2 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
 				double[][][] mat3 = new double[Params.CARD_MAX_NUM][1][Params.CARD_MAX_NUM];
@@ -384,7 +384,7 @@ public class GaSys {
 				case 2:
 				case 3:
 				case 4:
-					int targetPlayerNum = (int) (Math.random() * Params.GA_ELETE_NUM);
+					int targetPlayerNum = (int) (Math.random() * Params.GA_PARENT_NUM);
 					GaSysPlayer targetPlayer = ((GaSysPlayer) parentList.get(targetPlayerNum));
 					for (n = 0; n < Params.CARD_MAX_NUM; n++) {
 						for (j = 0; j < Params.CARD_MAX_NUM; j++) {
@@ -424,8 +424,8 @@ public class GaSys {
 				case 27:
 				case 28:
 				case 29:
-					int targetPlayerNum1 = (int) (Math.random() * Params.GA_ELETE_NUM);
-					int targetPlayerNum2 = (int) (Math.random() * Params.GA_ELETE_NUM);
+					int targetPlayerNum1 = (int) (Math.random() * Params.GA_PARENT_NUM);
+					int targetPlayerNum2 = (int) (Math.random() * Params.GA_PARENT_NUM);
 					GaSysPlayer targetPlayer1 = ((GaSysPlayer) parentList.get(targetPlayerNum1));
 					GaSysPlayer targetPlayer2 = ((GaSysPlayer) parentList.get(targetPlayerNum2));
 
@@ -460,9 +460,9 @@ public class GaSys {
 				case 8:
 				case 20:
 				case 21:
-					targetPlayerNum1 = (int) (Math.random() * Params.GA_ELETE_NUM);
-					targetPlayerNum2 = (int) (Math.random() * Params.GA_ELETE_NUM);
-					int targetPlayerNum3 = (int) (Math.random() * Params.GA_ELETE_NUM);
+					targetPlayerNum1 = (int) (Math.random() * Params.GA_PARENT_NUM);
+					targetPlayerNum2 = (int) (Math.random() * Params.GA_PARENT_NUM);
+					int targetPlayerNum3 = (int) (Math.random() * Params.GA_PARENT_NUM);
 					targetPlayer1 = ((GaSysPlayer) parentList.get(targetPlayerNum1));
 					targetPlayer2 = ((GaSysPlayer) parentList.get(targetPlayerNum2));
 					GaSysPlayer targetPlayer3 = ((GaSysPlayer) parentList.get(targetPlayerNum3));
@@ -470,9 +470,9 @@ public class GaSys {
 					mat2 = targetPlayer2.getMyDeckMat();
 					mat3 = targetPlayer3.getsupplyMat();
 
-					targetPlayerNum1 = (int) (Math.random() * Params.GA_ELETE_NUM);
-					targetPlayerNum2 = (int) (Math.random() * Params.GA_ELETE_NUM);
-					targetPlayerNum3 = (int) (Math.random() * Params.GA_ELETE_NUM);
+					targetPlayerNum1 = (int) (Math.random() * Params.GA_PARENT_NUM);
+					targetPlayerNum2 = (int) (Math.random() * Params.GA_PARENT_NUM);
+					targetPlayerNum3 = (int) (Math.random() * Params.GA_PARENT_NUM);
 					targetPlayer1 = ((GaSysPlayer) parentList.get(targetPlayerNum1));
 					targetPlayer2 = ((GaSysPlayer) parentList.get(targetPlayerNum2));
 					targetPlayer3 = ((GaSysPlayer) parentList.get(targetPlayerNum3));
@@ -481,7 +481,7 @@ public class GaSys {
 					mat5 = targetPlayer2.getPositionMat();
 					mat6 = targetPlayer3.getEndTurnMat();
 
-					targetPlayerNum1 = (int) (Math.random() * Params.GA_ELETE_NUM);
+					targetPlayerNum1 = (int) (Math.random() * Params.GA_PARENT_NUM);
 					targetPlayer1 = ((GaSysPlayer) parentList.get(targetPlayerNum1));
 
 					mat7 = targetPlayer1.getVictryDiffMat();
@@ -496,8 +496,8 @@ public class GaSys {
 				case 23:
 				case 25:
 				case 24:
-					targetPlayerNum1 = (int) (Math.random() * Params.GA_ELETE_NUM);
-					targetPlayerNum2 = (int) (Math.random() * Params.GA_ELETE_NUM);
+					targetPlayerNum1 = (int) (Math.random() * Params.GA_PARENT_NUM);
+					targetPlayerNum2 = (int) (Math.random() * Params.GA_PARENT_NUM);
 					targetPlayer1 = ((GaSysPlayer) parentList.get(targetPlayerNum1));
 					targetPlayer2 = ((GaSysPlayer) parentList.get(targetPlayerNum2));
 
@@ -548,7 +548,7 @@ public class GaSys {
 				case 12:
 				case 18:
 				case 19:
-					targetPlayerNum = (int) (Math.random() * Params.GA_ELETE_NUM);
+					targetPlayerNum = (int) (Math.random() * Params.GA_PARENT_NUM);
 					targetPlayer = ((GaSysPlayer) parentList.get(targetPlayerNum));
 					for (n = 0; n < Params.CARD_MAX_NUM; n++) {
 						for (j = 0; j < Params.CARD_MAX_NUM; j++) {

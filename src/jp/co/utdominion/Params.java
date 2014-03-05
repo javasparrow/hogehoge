@@ -11,27 +11,27 @@ public class Params {
 	public final static int CARD_CURSE = 7;
 
 	public final static int CARD_MARKET = 18;
-	//改築
+	//改築 o
 	public final static int CARD_SMITHY = 8;
 	public final static int CARD_MONEYLENDER = 12;
 	public final static int CARD_WOODCUTTER = 19;
 	public final static int CARD_COUNCILROOM = 20;
-	//玉座の間
+	//玉座の間 o
 	public final static int CARD_LABORATRY = 11;
-	//鉱山
-	//工房
-	//宰相
-	//祝宴
+	//鉱山 o
+	//工房 o
+	//宰相 -1
+	//祝宴 o
 	public final static int CARD_FESTIVAL = 21;
-	//書庫
-	//地下貯蔵庫
+	//書庫 o
+	//地下貯蔵庫 o
 	public final static int CARD_GARDEN = 22;
-	//泥棒
-	//冒険者
+	//泥棒 o
+	//冒険者 o
 	public final static int CARD_MOAT = 23;
 	public final static int CARD_WITCH = 13;
-	//密偵
-	//民兵
+	//密偵 o
+	//民兵 o
 	public final static int CARD_VILLAGE = 24;
 	//役人
 	public final static int CARD_CHAPEL = 25;
@@ -224,12 +224,12 @@ public class Params {
 
 	//GA
 	//エリート
-	public final static int GA_ELETE_NUM = 200;
-	//エリートのうち、一定確率で死ぬ物の数
+	public final static int GA_PARENT_NUM = 200;
+	//エリートのうち、一定確率で死ぬ物の数 parent - elete
 	public final static int GA_ALIVE_NUM = 198;
 
 	//次世代に残る数
-	public final static int GA_GO_NEXT_NUM = 2;
+	public final static int GA_ELETE_NUM = 2;
 
 	public final static int GA_TOTAL_NUM = 800;
 

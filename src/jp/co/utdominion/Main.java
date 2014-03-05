@@ -1,5 +1,7 @@
 package jp.co.utdominion;
 
+import jp.co.utdominion.gui.DomGUI;
+
 
 
 
@@ -11,11 +13,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		//Gaの場合
-		GaSys ga = new GaSys();
-		ga.executeGa();
+		//GaSys ga = new GaSys();
+		//ga.executeGa();
 		
 		
-		//new DomGUI().execute();
+		new DomGUI().execute();
 		
 		
 		//new LogLearning().execute();
